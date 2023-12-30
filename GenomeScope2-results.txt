@@ -1,0 +1,93 @@
+Illumina Reads
+P94
+p = 2
+k = 27
+property                      min               max               
+Homozygous (aa)               99.4559%          99.5368%          
+Heterozygous (ab)             0.46318%          0.544075%         
+Genome Haploid Length         543,605,562 bp    546,371,013 bp    
+Genome Repeat Length          31,451,535 bp     31,611,536 bp     
+Genome Unique Length          512,154,028 bp    514,759,477 bp    
+Model Fit                     95.3078%          99.0639%          
+Read Error Rate               0.0298324%        0.0298324% 
+property                      min               max               
+Homozygous (aa)               99.5083%          99.5384%          
+Heterozygous (ab)             0.461631%         0.49171%          
+Genome Haploid Length         546,661,446 bp    548,568,743 bp    
+Genome Repeat Length          36,643,243 bp     36,771,091 bp     
+Genome Unique Length          510,018,202 bp    511,797,652 bp    
+Model Fit                     95.331%           99.5451%          
+Read Error Rate               0.0466137%        0.0466137%  
+
+P95
+p = 2
+k = 27
+property                      min               max               
+Homozygous (aa)               99.8%             99.8252%          
+Heterozygous (ab)             0.174824%         0.200024%         
+Genome Haploid Length         546,735,144 bp    547,806,216 bp    
+Genome Repeat Length          29,581,088 bp     29,639,038 bp     
+Genome Unique Length          517,154,056 bp    518,167,178 bp    
+Model Fit                     96.2739%          99.4703%          
+Read Error Rate               0.0499101%        0.0499101%  
+property                      min               max               
+Homozygous (aa)               99.7727%          99.8062%          
+Heterozygous (ab)             0.193797%         0.227317%         
+Genome Haploid Length         547,446,442 bp    548,765,646 bp    
+Genome Repeat Length          31,370,389 bp     31,445,983 bp     
+Genome Unique Length          516,076,053 bp    517,319,663 bp    
+Model Fit                     95.8859%          99.3936%          
+Read Error Rate               0.0665735%        0.0665735%   
+
+P96
+p = 2
+k = 27
+property                      min               max               
+Homozygous (aa)               99.693%           99.7173%          
+Heterozygous (ab)             0.28269%          0.306951%         
+Genome Haploid Length         546,647,153 bp    547,716,529 bp    
+Genome Repeat Length          28,840,355 bp     28,896,774 bp     
+Genome Unique Length          517,806,798 bp    518,819,755 bp    
+Model Fit                     96.0916%          99.3596%          
+Read Error Rate               0.0349328%        0.0349328%
+property                      min               max               
+Homozygous (aa)               99.6664%          99.6964%          
+Heterozygous (ab)             0.303603%         0.333642%         
+Genome Haploid Length         546,097,942 bp    547,341,663 bp    
+Genome Repeat Length          30,117,565 bp     30,186,156 bp     
+Genome Unique Length          515,980,377 bp    517,155,507 bp    
+Model Fit                     95.8116%          99.3378%          
+Read Error Rate               0.0474938%        0.0474938%     
+
+P01
+p = 2
+k = 27
+property                      min               max               
+Homozygous (aa)               99.065%           99.1987%          
+Heterozygous (ab)             0.801344%         0.93498%          
+Genome Haploid Length         518,458,121 bp    525,317,618 bp    
+Genome Repeat Length          36,692,709 bp     37,178,174 bp     
+Genome Unique Length          481,765,413 bp    488,139,444 bp    
+Model Fit                     95.2126%          99.4986%          
+Read Error Rate               0.00992218%       0.00992218%  
+property                      min               max               
+Homozygous (aa)               95.5613%          97.0421%          
+Heterozygous (ab)             2.95786%          4.43866%          
+Genome Haploid Length         2,906,119 bp      3,167,557 bp      
+Genome Repeat Length          1,771,190 bp      1,930,528 bp      
+Genome Unique Length          1,134,929 bp      1,237,029 bp      
+Model Fit                     73.0594%          87.3858%          
+Read Error Rate               10.5914%          10.5914%   
+
+C01, Pacbio, trimmed and corrected by canu
+p = 2
+k = 27
+max_kmercov = 1000
+property                      min               max               
+Homozygous (aa)               99.4045%          99.4428%          
+Heterozygous (ab)             0.557185%         0.595514%         
+Genome Haploid Length         482,551,070 bp    484,310,690 bp    
+Genome Repeat Length          18,705,506 bp     18,773,716 bp     
+Genome Unique Length          463,845,564 bp    465,536,974 bp    
+Model Fit                     94.7054%          97.643%           
+Read Error Rate               0.119415%         0.119415%         
