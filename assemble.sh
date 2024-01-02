@@ -2,10 +2,12 @@
 
 ## On Thoth
 conda activate assemble
-nohup flye --threads 30 \
---pacbio-raw /home/jenyuw/Fish-project/result/trimmed/C01_trimmed.fastq.gz \
---out-dir /home/jenyuw/Fish-project/result/assembly/C01_flye &
+flye --threads 30 \
+--pacbio-raw /home/jenyuw/Fish-project/result/trimmed/C01.trimmed.fastq.gz \
+--out-dir /home/jenyuw/Fish-project/result/assembly/C01_flye
 conda deactivate
+
+
 
 
 ## On Thoth
@@ -24,7 +26,7 @@ parallel_jobs =8 #M gb memory, between M/64~M/32
 input_type = raw
 read_type = clr # clr, ont, hifi
 input_fofn = ${assemble}/input.fofn
-workdir = ${assemble}/${name}_nextdenovo-45
+workdir = ${assemble}/C01_nextdenovo-45
 
 [correct_option]
 read_cutoff = 1k
@@ -42,7 +44,7 @@ minimap2_options_map = -t 4
 nextgraph_options = -A
 " >${assemble}/run.cfg
 
-ls ${trimmed}/C01_trimmed.fastq.gz > ${assemble}/input.fofn
+ls ${trimmed}/C01.trimmed.fastq.gz > ${assemble}/input.fofn
 nextDenovo ${assemble}/run.cfg
 
 
@@ -63,3 +65,10 @@ stopOnLowCoverage=2 minInputCoverage=3 \
 useGrid=false \
 -raw -pacbio ${trimmed}/C01_trimmed.fastq.gz
 conda deactivate
+
+
+## On Hydra
+source ~/.bashrc
+trimmed="/home/jenyuw/Fish-project-Hy/result/trimmed"
+assemble="/home/jenyuw/Fish-project-Hy/result/assembly"
+raven --threads 62 -k 17  ${trimmed}/C01_trimmed.fastq.gz |bgzip -@ 8 -c > ${assemble}/C01_raven/C01_raven.assembly.fasta.gz
