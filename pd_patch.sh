@@ -33,6 +33,8 @@ function purge {
 
 purge ${nT} "map-pb" ${polishing}/C01.flye.nextpolish.fasta.PolcaCorrected.fa ${trimmed}/C01.trimmed.fastq.gz C01.flye.pd
 
+##Nucmer alignment may take 6 to 7 hours with 32 threads.
+##
 ragtag.py patch -w -o ${patched}/C01_1 --aligner 'nucmer' \
 --nucmer-params '--maxmatch -l 100 -c 500 -t 32' \
 ${purge_dups}/C01.flye.pd/purged.fa \
@@ -40,3 +42,10 @@ ${polishing}/C01.canu.nextpolish.fasta.PolcaCorrected.fa
 
 
 purge ${nT} "map-pb" ${patched}/C01_1/ragtag.patch.fasta ${trimmed}/C01.trimmed.fastq.gz C01.flye.canu.pd
+
+ragtag.py patch -w -o ${patched}/C01_2 --aligner 'nucmer' \
+--nucmer-params '--maxmatch -l 100 -c 500 -t 32' \
+${purge_dups}/C01.flye.canu.pd/purged.fa \
+${polishing}/C01.nextdenovo-45.nextpolish.fasta.PolcaCorrected.fa
+
+purge ${nT} "map-pb" ${patched}/C01_2/ragtag.patch.fasta ${trimmed}/C01.trimmed.fastq.gz C01.fl.ca.nd.pd

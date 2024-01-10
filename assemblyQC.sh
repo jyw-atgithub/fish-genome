@@ -30,3 +30,7 @@ done
 
 
 conda deactivate
+
+
+busco -f -i /home/jenyuw/Fish-project/result/purge_dups/C01.flye.canu.pd/purged.fa \
+-o pd2-busco -m genome -l actinopterygii_odb10 -c 30
