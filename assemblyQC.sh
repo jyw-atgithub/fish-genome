@@ -57,7 +57,7 @@ python3 /home/jenyuw/Software/compleasm_kit/compleasm.py run -a /home/jenyuw/Fis
 
 ##Merqury
 
-#sh /home/jenyuw/Software/merqury/best_k.sh 135000000
+#bash /home/jenyuw/Software/merqury/best_k.sh 135000000
 #k=23.3272 ==> 23
 
 meryl k=23 count ${trimmed}/P96.trimmed.r*.fastq.gz output ${merqury_out}/P96.meryl
