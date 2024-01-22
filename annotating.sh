@@ -18,18 +18,27 @@ singularity exec /home/jenyuw/Software/dfam-tetools-latest.sif BuildDatabase -na
 singularity exec /home/jenyuw/Software/dfam-tetools-latest.sif RepeatModeler -database "C01_db" -threads 30 -LTRStruct \
  -recoverDir /home/jenyuw/Fish-project/result/repeat/RM_82009.SatJan132200052024
 #singularity run -B /dfs7/jje/jenyuw/Fish-project-hpc3 dfam-tetools-latest.sif RepeatModeler -database "C01_db" -threads 60 -LTRStruct 
-
+#--> This created another database (repeat_db2) on HPC3. HPC3 was faster.
 
 ##repeat masking
 ##RepeatMasker v4.1.4 is also included in the singularity image
 ## we have the individually installed v4.1.6 but the configuration is not done yet
 cd ${repeat}
-singularity exec /home/jenyuw/Software/dfam-tetools-latest.sif RepeatMasker -gff -s \
+singularity exec /home/jenyuw/Software/dfam-tetools-latest.sif RepeatMasker -gff -s -xsmall \
 -lib ${repeat}/C01_db-families.fa ${final_genome}/C01_final.fasta
 #--> Then, the original fasta file is masked. Be careful!
+#singularity exec -B /dfs7/jje/jenyuw/Fish-project-hpc3 dfam-tetools-latest.sif RepeatMasker -gff -s -xsmall -lib C01_db-families.fa C01_final.fasta
+
 
 ##annotation
 
-singularity exec /home/jenyuw/Software/galba.sif galba.pl --genome=${final_genome}/C01_final.fasta --species=Phytichthys_chirus \
+singularity exec /home/jenyuw/Software/galba.sif galba.pl --genome=${final_genome}/C01_final.fasta.masked --species=Phytichthys_chirus \
 --prot_seq=${ref}/GCF_016920845/protein.faa  --hints=${ref}/GCF_016920845/genomic2.gff \
---workingdir=${annotation} --threads 30 --crf
+--workingdir=${annotation} --threads 31 --crf
+
+#singularity exec -B /dfs7/jje/jenyuw/Fish-project-hpc3/annotating/ galba.sif galba.pl --genome=C01_final.fasta.masked --species=Phytichthys_chirus \
+#--prot_seq=protein.faa  --hints=genomic2.gff \
+#--workingdir=/dfs7/jje/jenyuw/Fish-project-hpc3 --threads 60 --crf
+
+#module load anaconda/2022.05
+#conda activate galba
