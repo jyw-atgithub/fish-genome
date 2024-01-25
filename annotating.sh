@@ -31,9 +31,12 @@ singularity exec /home/jenyuw/Software/dfam-tetools-latest.sif RepeatMasker -gff
 
 
 ##annotation
+#we have to simplify the sequence names
+#cat protein.faa |sed 's/\ \[Gasterosteus aculeatus\]//g'|tr -d "\ "|gawk -F "." '{print $1}'> protein2.fasta
+#cat genomic.gff|grep -v "#" > genomic2.gff
 
 singularity exec /home/jenyuw/Software/galba.sif galba.pl --genome=${final_genome}/C01_final.fasta.masked --species=Phytichthys_chirus \
---prot_seq=${ref}/GCF_016920845/protein.faa  --hints=${ref}/GCF_016920845/genomic2.gff \
+--prot_seq=${ref}/GCF_016920845/protein2.fasta  --hints=${ref}/GCF_016920845/genomic2.gff \
 --workingdir=${annotation} --threads 31 --crf
 
 #singularity exec -B /dfs7/jje/jenyuw/Fish-project-hpc3/annotating/ galba.sif galba.pl --genome=C01_final.fasta.masked --species=Phytichthys_chirus \
