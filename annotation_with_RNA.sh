@@ -38,4 +38,4 @@ SKIP
 
 singularity exec /home/jenyuw/Software/braker3.sif braker.pl --workingdir=${annotation}/braker \
 --genome=${final_genome}/C01_final.fasta.masked --bam=${aligned_bam}/Pc29.all.sort.bam \
---prot_seq=${ref}/Vertebrata.fa.gz --threads ${nT}
+--prot_seq=${ref}/combined.protein.fasta --threads ${nT}

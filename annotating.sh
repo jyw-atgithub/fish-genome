@@ -36,8 +36,7 @@ singularity exec /home/jenyuw/Software/dfam-tetools-latest.sif RepeatMasker -gff
 #cat genomic.gff|grep -v "#" > genomic2.gff
 
 singularity exec /home/jenyuw/Software/galba.sif galba.pl --genome=${final_genome}/C01_final.fasta.masked --species=Phytichthys_chirus \
---prot_seq=${ref}/GCF_016920845/protein2.fasta  --hints=${ref}/GCF_016920845/genomic2.gff \
---workingdir=${annotation} --threads 31 --crf
+--prot_seq=${ref}/combined.protein.fasta --workingdir=${annotation}/0214_run1 --threads 31
 
 #singularity exec -B /dfs7/jje/jenyuw/Fish-project-hpc3/annotating/ galba.sif galba.pl --genome=C01_final.fasta.masked --species=Phytichthys_chirus \
 #--prot_seq=protein.faa  --hints=genomic2.gff \
