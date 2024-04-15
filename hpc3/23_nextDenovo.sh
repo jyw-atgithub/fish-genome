@@ -33,7 +33,7 @@ seed_cutoff = 0
 sort_options = -m 50g -t 4
 minimap2_options_raw = -t 4
 pa_correction = 4
-correction_options = -p 4 -max_lq_length 10k
+correction_options = -p 4
 
 [assemble_option]
 minimap2_options_cns = -t 4 -k17 -w17

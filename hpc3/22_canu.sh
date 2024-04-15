@@ -2,10 +2,11 @@
 
 #SBATCH --job-name=canu
 #SBATCH -A jje_lab
-#SBATCH -p standard
+#SBATCH -p highmem
 #SBATCH --array=1
-#SBATCH --cpus-per-task=64
-#SBATCH --mem-per-cpu=6G
+#SBATCH --cpus-per-task=36
+#SBATCH --mem-per-cpu=10G
+#SBATCH --time=7-00:00:00
 source ~/.bashrc
 
 trimmed="/dfs7/jje/jenyuw/Fish-project-hpc3/results/trimmed"
