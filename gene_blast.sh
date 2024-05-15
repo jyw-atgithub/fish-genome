@@ -1,5 +1,6 @@
 #!/bin/bash
 source ~/.bashrc
+BL="/dfs7/jje/jenyuw/Fish-project-hpc3/old/blast"
 
 #nT=30
 nT=$SLURM_CPUS_PER_TASK
@@ -24,8 +25,8 @@ makeblastdb -in C01_final.fasta.masked -dbtype nucl -parse_seqids -input_type fa
 #blastn -query chi-A.mRNA.fasta -db C01_final.fasta.masked -outfmt 3 -out chi-A.blastn.out
 #blastn -query chi-A.mRNA.fasta -db C01_final.fasta.masked -outfmt 1 -out chi-A.blastn.out
 
-blastn -query CHI-A.fasta -db C01_final.fasta.masked -outfmt 7 -out CHI-A.blastn.out
-blastn -query CHID1.fasta -db C01_final.fasta.masked -outfmt 7 -out CHID1.blastn.out
-blastn -query CHIO-I.fasta -db C01_final.fasta.masked -outfmt 7 -out CHIO-I.blastn.out
-blastn -query CHIO-II.fasta -db C01_final.fasta.masked -outfmt 7 -out CHIO-II.blastn.out
-blastn -query CHS.fasta -db C01_final.fasta.masked -outfmt 7 -out CHS.blastn.out
+for i in ${BL}/*.fasta
+do
+name=$(basename ${i} .fasta)
+blastn -query ${i} -db ${BL}/C01_final.fasta.masked -outfmt 7 -out ${BL}/${name}.blastn.out
+done
