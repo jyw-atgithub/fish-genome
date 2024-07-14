@@ -30,3 +30,7 @@ do
 name=$(basename ${i} .fasta)
 blastn -query ${i} -db ${BL}/C01_final.fasta.masked -outfmt 7 -out ${BL}/${name}.blastn.out
 done
+
+blastn -query CEsterLipase.fasta -db ${BL}/C01_final.fasta.masked -outfmt 7 -out ${BL}/CEsterLipase.blastn.out
+blastn -query chymotrypsin_new.fasta -db ${BL}/C01_final.fasta.masked -outfmt 7 -out ${BL}/chymotrypsin_new.blastn.out
+blastn -query anpep.fasta -db ${BL}/C01_final.fasta.masked -outfmt 7 -out ${BL}/anpep.blastn.out
