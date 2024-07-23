@@ -23,3 +23,10 @@ samtools index -@ ${nT} ${old}/C01_target-asm-1.bam
 minimap2 -a --cs -x asm20 -uf -t ${nT} ${asm} /dfs7/jje/jenyuw/Fish-project-hpc3/old/blast/*.fasta| samtools view -bS - |\
 samtools sort -@ ${nT} -o ${old}/C01_target-asm-2.bam
 samtools index -@ ${nT} ${old}/C01_target-asm-2.bam
+
+#try to find the anapep genes
+minimap2 -a --cs -x asm20 -uf -t ${nT} ${asm} /dfs7/jje/jenyuw/Fish-project-hpc3/old/blast/anpep.fasta| samtools view -bS - |\
+samtools sort -@ ${nT} -o ${old}/C01_anapep-asm.bam
+samtools index -@ ${nT} ${old}/C01_anapep-asm.bam
+
+dnadiff ${asm} ${old}/blast/anpep.fasta
