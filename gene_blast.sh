@@ -2,7 +2,6 @@
 source ~/.bashrc
 BL="/dfs7/jje/jenyuw/Fish-project-hpc3/old/blast"
 
-#nT=30
 nT=$SLURM_CPUS_PER_TASK
 
 #cd /dfs7/jje/jenyuw/Fish-project-hpc3/blast
@@ -13,6 +12,11 @@ cd /dfs7/jje/jenyuw/Fish-project-hpc3/old/blast
 
 #build the blast local database
 makeblastdb -in C01_final.fasta.masked -dbtype nucl -parse_seqids -input_type fasta
+#this is Cebidichthys violaceus (monkeyface prickleback)
+makeblastdb -in GCA008087265.1_genome.fna  -dbtype nucl -parse_seqids -input_type fasta
+#This is high cockscomb (Anoplarchus purpurescens)
+makeblastdb -in APGenomeomicsbox.fa -dbtype nucl -parse_seqids -input_type fasta
+
 
 #tblastn -query chitinase.fasta -db C01_final.fasta.masked -evalue 0.1 -html -out chitinase.tblastn.html
 #blastn -query chitinase.DNA.fasta -db C01_final.fasta.masked -html -out chitinase.blastn.html
@@ -28,7 +32,9 @@ makeblastdb -in C01_final.fasta.masked -dbtype nucl -parse_seqids -input_type fa
 for i in ${BL}/*.fasta
 do
 name=$(basename ${i} .fasta)
-blastn -query ${i} -db ${BL}/C01_final.fasta.masked -outfmt 7 -out ${BL}/${name}.blastn.out
+blastn -query ${i} -db ${BL}/C01_final.fasta.masked -outfmt 7 -out ${BL}/${name}_PC.blastn.out
+blastn -query ${i} -db ${BL}/GCA008087265.1_genome.fna -outfmt 7 -out ${BL}/${name}_CV.blastn.out
+blastn -query ${i} -db ${BL}/APGenomeomicsbox.fa -outfmt 7 -out ${BL}/${name}_AP.blastn.out
 done
 
 blastn -query CEsterLipase.fasta -db ${BL}/C01_final.fasta.masked -outfmt 7 -out ${BL}/CEsterLipase.blastn.out

@@ -28,5 +28,4 @@ samtools index -@ ${nT} ${old}/C01_target-asm-2.bam
 minimap2 -a --cs -x asm20 -uf -t ${nT} ${asm} /dfs7/jje/jenyuw/Fish-project-hpc3/old/blast/anpep.fasta| samtools view -bS - |\
 samtools sort -@ ${nT} -o ${old}/C01_anapep-asm.bam
 samtools index -@ ${nT} ${old}/C01_anapep-asm.bam
-
-dnadiff ${asm} ${old}/blast/anpep.fasta
+#dnadiff ${asm} ${old}/blast/anpep.fasta

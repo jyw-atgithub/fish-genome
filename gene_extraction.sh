@@ -11,5 +11,6 @@ read="/dfs7/jje/jenyuw/Fish-project-hpc3/results/trimmed/C01_trimmed.fastq.gz"
 minimap2 -a --cs -x splice:hq -uf -t ${nT} ${asm} ${old}/blast/CEL-like.fasta ${old}/blast/CEsterLipase.fasta| samtools view -bS - |samtools sort -@ ${nT} -o ${old}/C01_CELs-asm.bam
 samtools index -@ ${nT} ${old}/C01_CELs-asm.bam
 
-bedtools bamtobed -i ${old}/C01_CELs-asm.bam > ${gene_seq}/C01_CELs-asm.bed
+bedtools bamtobed -split -i ${old}/C01_CELs-asm.bam > ${gene_seq}/C01_CELs-asm.bed
 bedtools getfasta -fi ${asm} -bed ${gene_seq}/C01_CELs-asm.bed > ${gene_seq}/C01_CELs.fasta
+#Then, we need to conjugate the segments of each one gene. 
