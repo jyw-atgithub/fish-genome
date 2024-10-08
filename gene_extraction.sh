@@ -12,5 +12,17 @@ minimap2 -a --cs -x splice:hq -uf -t ${nT} ${asm} ${old}/blast/CEL-like.fasta ${
 samtools index -@ ${nT} ${old}/C01_CELs-asm.bam
 
 bedtools bamtobed -split -i ${old}/C01_CELs-asm.bam > ${gene_seq}/C01_CELs-asm.bed
-bedtools getfasta -fi ${asm} -bed ${gene_seq}/C01_CELs-asm.bed > ${gene_seq}/C01_CELs.fasta
-#Then, we need to conjugate the segments of each one gene. 
+bedtools bamtobed  -i ${old}/C01_CELs-asm.bam > ${gene_seq}/C01_CELs-asm.nosplit.bed
+bedtools getfasta -fi ${asm} -bed ${gene_seq}/C01_CELs-asm.nosplit.bed > ${gene_seq}/C01_CELs.fasta
+#If we do not use "-split" in bedtool, we will get the entire gene sequence.
+bedtools getfasta -fi ${asm} -bed ${gene_seq}/C01_CELs-asm.bed |\
+seqkit rmdup |seqkit sort > ${gene_seq}/C01_CELs.cds.fasta
+#If we use "-split" in bedtool, we will only get most of the aligned coding regions so we need to manually conjugate the segments of each one gene.
+
+bedtools bamtobed -split -i ${old}/C01_chitinase-asm.bam > ${gene_seq}/C01_chitinase-asm.bed
+bedtools bamtobed  -i ${old}/C01_chitinase-asm.bam > ${gene_seq}/C01_chitinase-asm.nosplit.bed
+bedtools getfasta -fi ${asm} -bed ${gene_seq}/C01_chitinase-asm.nosplit.bed > ${gene_seq}/C01_chitinase.fasta
+bedtools getfasta -fi ${asm} -bed ${gene_seq}/C01_chitinase-asm.bed |\
+seqkit rmdup |seqkit sort > ${gene_seq}/C01_chitinase.cds.fasta
+
+##Let's unify the coordinates, so we rely on the annotation results (gff file)
