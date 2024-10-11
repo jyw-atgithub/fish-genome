@@ -6,6 +6,7 @@ assembly="/home/jenyuw/Fish-project/result/assembly"
 aligned_bam="/home/jenyuw/Fish-project/result/aligned_bam"
 nT=24
 source ~/.bashrc
+#We were trying to figure out which illumina sequence really belong to P. chirus.
 
 conda activate everything
 for i in $raw/*READ1-Sequences.txt.gz

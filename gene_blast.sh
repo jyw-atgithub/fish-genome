@@ -1,10 +1,9 @@
 #!/bin/bash
 source ~/.bashrc
-BL="/dfs7/jje/jenyuw/Fish-project-hpc3/old/blast"
+bl="/dfs7/jje/jenyuw/Fish-project-hpc3/old/blast"
 
 nT=$SLURM_CPUS_PER_TASK
 
-#cd /dfs7/jje/jenyuw/Fish-project-hpc3/blast
 cd /dfs7/jje/jenyuw/Fish-project-hpc3/old/blast
 #We gathered our target sequence manually. Including:
 #1. Chitinase
@@ -13,9 +12,9 @@ cd /dfs7/jje/jenyuw/Fish-project-hpc3/old/blast
 #build the blast local database
 makeblastdb -in C01_final.fasta.masked -dbtype nucl -parse_seqids -input_type fasta
 #this is Cebidichthys violaceus (monkeyface prickleback)
-makeblastdb -in GCA008087265.1_genome.fna  -dbtype nucl -parse_seqids -input_type fasta
+makeblastdb -in CV_genome.fasta  -dbtype nucl -parse_seqids -input_type fasta
 #This is high cockscomb (Anoplarchus purpurescens)
-makeblastdb -in APGenomeomicsbox.fa -dbtype nucl -parse_seqids -input_type fasta
+makeblastdb -in AP_genome.fasta -dbtype nucl -parse_seqids -input_type fasta
 
 
 #tblastn -query chitinase.fasta -db C01_final.fasta.masked -evalue 0.1 -html -out chitinase.tblastn.html
@@ -29,14 +28,14 @@ makeblastdb -in APGenomeomicsbox.fa -dbtype nucl -parse_seqids -input_type fasta
 #blastn -query chi-A.mRNA.fasta -db C01_final.fasta.masked -outfmt 3 -out chi-A.blastn.out
 #blastn -query chi-A.mRNA.fasta -db C01_final.fasta.masked -outfmt 1 -out chi-A.blastn.out
 
-for i in ${BL}/*.fasta
+for i in ${bl}/query/*.fasta
 do
 name=$(basename ${i} .fasta)
-blastn -query ${i} -db ${BL}/C01_final.fasta.masked -outfmt 7 -out ${BL}/${name}_PC.blastn.out
-blastn -query ${i} -db ${BL}/GCA008087265.1_genome.fna -outfmt 7 -out ${BL}/${name}_CV.blastn.out
-blastn -query ${i} -db ${BL}/APGenomeomicsbox.fa -outfmt 7 -out ${BL}/${name}_AP.blastn.out
+blastn -query ${i} -db ${bl}/C01_final.fasta.masked -outfmt 7 -out ${bl}/output/${name}_PC.blastn.out
+blastn -query ${i} -db ${bl}/CV_genome.fasta -outfmt 7 -out ${bl}/output/${name}_CV.blastn.out
+blastn -query ${i} -db ${bl}/AP_genome.fasta -outfmt 7 -out ${bl}/output/${name}_AP.blastn.out
 done
 
-blastn -query CEsterLipase.fasta -db ${BL}/C01_final.fasta.masked -outfmt 7 -out ${BL}/CEsterLipase.blastn.out
-blastn -query chymotrypsin_new.fasta -db ${BL}/C01_final.fasta.masked -outfmt 7 -out ${BL}/chymotrypsin_new.blastn.out
-blastn -query anpep.fasta -db ${BL}/C01_final.fasta.masked -outfmt 7 -out ${BL}/anpep.blastn.out
+blastn -query CEsterLipase.fasta -db ${bl}/C01_final.fasta.masked -outfmt 7 -out ${bl}/CEsterLipase.blastn.out
+blastn -query chymotrypsin_new.fasta -db ${bl}/C01_final.fasta.masked -outfmt 7 -out ${bl}/chymotrypsin_new.blastn.out
+blastn -query anpep.fasta -db ${bl}/C01_final.fasta.masked -outfmt 7 -out ${bl}/anpep.blastn.out
