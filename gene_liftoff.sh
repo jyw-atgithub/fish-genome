@@ -24,7 +24,7 @@ grep -v -E "contig_2416|contig_3098|contig_3099" >${anno}/AP_renamed.gff
 
 
 #change the sequence names of assembly from NCBI to fit the original gff
-sed -E s/'.*Seg([0-9]+)_quiver_quiver_pilon,.*'/'>Seg\1|quiver|quiver|pilon'/g GCA008087265.1_genome.fna >CV_genome.fasta
+sed -E s/'.*Seg([0-9]+)_quiver_quiver_pilon,.*'/'>Seg\1|quiver|quiver|pilon'/g GCA008087265.1_genome.fna >${bl}/CV_genome.fasta
 
 ##Lift the gene annotation from AP to P.chirus
 ##incomplete
