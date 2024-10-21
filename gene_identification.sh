@@ -18,8 +18,6 @@ seqkit subseq --gtf ${anno}/AP_chitinase_neighbors.gff  ${bl}/AP_genome.fasta >$
 seqkit grep -n -f ${anno}/PC_seq_names.txt  ${anno}/braker.codingseq > ${anno}/PC_chitinase_neighbors.fasta
 
 
-
-
 #blastx -remote -db refseq_protein -html -outfmt 7 -query need_to_blast.fasta -out function_blastx.out
 ##Because "blastx -remote" is not compatible with "-taxids", so we have 2 solutions:
 ##1. Download the refseq_protein database and use it locally
