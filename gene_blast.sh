@@ -36,6 +36,6 @@ blastn -query ${i} -db ${bl}/CV_genome.fasta -outfmt 7 -out ${bl}/output/${name}
 blastn -query ${i} -db ${bl}/AP_genome.fasta -outfmt 7 -out ${bl}/output/${name}_AP.blastn.out
 done
 
-blastn -query CEsterLipase.fasta -db ${bl}/C01_final.fasta.masked -outfmt 7 -out ${bl}/CEsterLipase.blastn.out
-blastn -query chymotrypsin_new.fasta -db ${bl}/C01_final.fasta.masked -outfmt 7 -out ${bl}/chymotrypsin_new.blastn.out
-blastn -query anpep.fasta -db ${bl}/C01_final.fasta.masked -outfmt 7 -out ${bl}/anpep.blastn.out
+#blastn -query CEsterLipase.fasta -db ${bl}/C01_final.fasta.masked -outfmt 7 -out ${bl}/CEsterLipase.blastn.out
+#blastn -query chymotrypsin_new.fasta -db ${bl}/C01_final.fasta.masked -outfmt 7 -out ${bl}/chymotrypsin_new.blastn.out
+#blastn -query anpep.fasta -db ${bl}/C01_final.fasta.masked -outfmt 7 -out ${bl}/anpep.blastn.out

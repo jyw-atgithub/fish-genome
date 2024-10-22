@@ -64,3 +64,39 @@ g16524.t1
 g14866.t1
 g14867.t1
 g10378.t1
+
+##Pepsinogen (Pepsin), gene + neighbor, AP
+
+jg14417
+jg14418+jg14423
+jg14424
+jg5381
+jg5382.t1
+jg5383
+jg27195
+jg27196
+jg27197
+
+##Pepsinogen (Pepsin), gene only, AP
+
+jg14418+jg14423
+jg5382.t1
+jg27196
+
+##Pepsinogen (Pepsin), gene + neighbor, PC
+
+g20031.t1
+g20032.t1
+g20033.t1
+g4759.t1
+g4760.t1
+g4761.t1
+g10523.t1
+g10524.t1
+g10525.t1
+
+##Pepsinogen (Pepsin), gene only, PC
+
+g20032.t1
+g4760.t1
+g10524.t1

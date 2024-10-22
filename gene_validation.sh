@@ -17,7 +17,7 @@ bl="/dfs7/jje/jenyuw/Fish-project-hpc3/old/blast"
 minimap2 -a --cs -x map-pb -t ${nT} ${asm} ${read} | samtools view -bS - |\
 samtools sort -@ ${nT} -o ${old}/C01_trimmed-asm.bam
 samtools index -@ ${nT} ${old}/C01_trimmed-asm.bam
-#mapping target genes to the assembly
+#mapping target genes to the assembly, testing two parameters
 minimap2 -a --cs -x splice:hq -uf -t ${nT} ${asm} /dfs7/jje/jenyuw/Fish-project-hpc3/old/blast/*.fasta| samtools view -bS - |\
 samtools sort -@ ${nT} -o ${old}/C01_target-asm-1.bam
 samtools index -@ ${nT} ${old}/C01_target-asm-1.bam
@@ -31,12 +31,21 @@ samtools sort -@ ${nT} -o ${old}/C01_chitinase-asm.bam
 samtools index -@ ${nT} ${old}/C01_chitinase-asm.bam
 #dnadiff ${asm} ${old}/blast/anpep.fasta
 
-minimap2 -a --cs -x asm20 -uf -t ${nT} ${asm} ${bl}/query/chitinase_sticlkeback.fasta | samtools view -bS - |\
+#try to find the chitinase genes
+minimap2 -a --cs -x asm20 -u f -t ${nT} ${asm} ${bl}/query/chitinase_sticlkeback.fasta | samtools view -bS - |\
 samtools sort -@ ${nT} -o ${old}/gene_mapping/chitinase-asm.bam
 samtools index -@ ${nT} ${old}/gene_mapping/chitinase-asm.bam
-minimap2 -a --cs -x asm20 -uf -t ${nT} ${bl}/AP_genome.fasta ${bl}/query/chitinase_sticlkeback.fasta | samtools view -bS - |\
+minimap2 -a --cs -x asm20 -u f -t ${nT} ${bl}/AP_genome.fasta ${bl}/query/chitinase_sticlkeback.fasta | samtools view -bS - |\
 samtools sort -@ ${nT} -o ${old}/gene_mapping/chitinase-AP.bam
 samtools index -@ ${nT} ${old}/gene_mapping/chitinase-AP.bam
-minimap2 -a --cs -x asm20 -uf -t ${nT} ${bl}/CV_genome.fasta ${bl}/query/chitinase_sticlkeback.fasta | samtools view -bS - |\
+minimap2 -a --cs -x asm20 -u f -t ${nT} ${bl}/CV_genome.fasta ${bl}/query/chitinase_sticlkeback.fasta | samtools view -bS - |\
 samtools sort -@ ${nT} -o ${old}/gene_mapping/chitinase-CV.bam
 samtools index -@ ${nT} ${old}/gene_mapping/chitinase-CV.bam
+
+#try to find the pepsinogen genes
+minimap2 -a --cs -x splice:hq -u f -t ${nT} ${asm} ${bl}/query/pepsin.fasta | samtools view -bS - |\
+samtools sort -@ ${nT} -o ${old}/gene_mapping/pepsinogen-asm.bam
+samtools index -@ ${nT} ${old}/gene_mapping/pepsinogen-asm.bam
+minimap2 -a --cs -x splice:hq -u f -t ${nT} ${bl}/AP_genome.fasta ${bl}/query/pepsin.fasta | samtools view -bS - |\
+samtools sort -@ ${nT} -o ${old}/gene_mapping/pepsinogen-AP.bam
+samtools index -@ ${nT} ${old}/gene_mapping/pepsinogen-AP.bam
