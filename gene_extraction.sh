@@ -6,6 +6,7 @@ old="/dfs7/jje/jenyuw/Fish-project-hpc3/old"
 asm="/dfs7/jje/jenyuw/Fish-project-hpc3/old/C01_final.fasta"
 gene_seq="/dfs7/jje/jenyuw/Fish-project-hpc3/old/gene_sequences"
 bl="/dfs7/jje/jenyuw/Fish-project-hpc3/old/blast"
+anno="/dfs7/jje/jenyuw/Fish-project-hpc3/old/annotation"
 read="/dfs7/jje/jenyuw/Fish-project-hpc3/results/trimmed/C01_trimmed.fastq.gz"
 
 ####Let's unify the coordinates, so we rely on the annotation results (gff file)####
@@ -27,11 +28,10 @@ seqkit grep -n -f ${anno}/PC_seq_names.txt  ${anno}/braker.codingseq > ${gene_se
 cat ${bl}/query/chitinase_salmon.fasta  ${bl}/query/chitinase_sticlkeback.fasta ${gene_seq}/AP_chitinase.fasta ${gene_seq}/PC_chitinase.fasta > ${gene_seq}/all_chitinase.fasta
 
 #similar tricks on pepsinogen genes
-seqkit grep -p GENE_19548,GENE_19552,GENE_20663,GENE_26753 ${anno}/AP_Genomeomicsbox.fasta >${anno}/AP_pepsinogen.fasta #the sequence of GENE_19548 & GENE_19552 are merged, because it looks like an annotation error.
-seqkit grep -p g20032.t1,g4760.t1,g10524.t1 ${anno}/braker.codingseq >${anno}/PC_pepsinogen.fasta
+seqkit grep -p jg14418.t1,jg14423.t1,jg5382.t1,jg27196.t1 ${anno}/AP_augustus.hints.codingseq >${anno}/AP_pepsinogen.fasta #the sequence of jg14418 & jg14423 are merged, because it looks like an annotation error.
+seqkit grep -p g20032.t1,g4760.t1,g15024.t1 ${anno}/braker.codingseq >${anno}/PC_pepsinogen.fasta
 
 
- 
 
 ##The following method is less effecent
 : <<'SKIP'
