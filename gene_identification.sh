@@ -18,9 +18,8 @@ seqkit subseq --gtf ${anno}/AP_chitinase_neighbors.gff  ${bl}/AP_genome.fasta >$
 seqkit grep -n -f ${anno}/PC_seq_names.txt  ${anno}/braker.codingseq > ${anno}/PC_chitinase_neighbors.fasta
 
 #Similar for pepsiogen genes. But the list is short, so we put the name here explicitly.
-
-seqkit grep -p GENE_19547,GENE_19548,GENE_19552,GENE_19553,GENE_20662,GENE_20663,GENE_20664,GENE_26752,GENE_26753,GENE_26754 ${anno}/AP_Genomeomicsbox.fasta >${anno}/AP_pepsinogen_neighbors.fasta #the sequence of GENE_19548 & GENE_19552 are merged, because it looks like an annotation error.
-seqkit grep -p g20031.t1,g20032.t1,g20033.t1,g4759.t1,g4760.t1,g4761.t1,g10523.t1,g10524.t1,g10525.t1 ${anno}/braker.codingseq >${anno}/PC_pepsinogen_neighbors.fasta
+seqkit grep -p jg14417.t1,jg14424.t1,jg5381.t1,jg5382.t1,jg5383.t1,jg27195.t1,jg27196.t1,jg27197.t1 ${anno}/AP_augustus.hints.codingseq >${anno}/AP_pepsinogen_neighbors.fasta #the sequence of jg14417.t1 & jg14424.t1 are merged, because it looks like an annotation error.
+seqkit grep -p g20031.t1,g20032.t1,g20033.t1,g4759.t1,g4760.t1,g4761.t1,g15023.t1,g15024.t1,g15025.t1 ${anno}/braker.codingseq >${anno}/PC_pepsinogen_neighbors.fasta
  
 
 #blastx -remote -db refseq_protein -html -outfmt 7 -query need_to_blast.fasta -out function_blastx.out
@@ -42,7 +41,7 @@ blastx -db ${anno}/refseq_database/refseq_protein -best_hit_score_edge 0.1 -taxi
 done
 ${anno}/AP_pepsinogen_neighbors.fasta
 ##Real blastx locally for the pepsinogen genes
-for i in  ${anno}/PC_pepsinogen_neighbors.fasta
+for i in ${anno}/AP_pepsinogen_neighbors.fasta ${anno}/PC_pepsinogen_neighbors.fasta
 do
 blastx -db ${anno}/refseq_database/refseq_protein -best_hit_score_edge 0.1 -taxids 7898 -num_threads $SLURM_CPUS_PER_TASK \
 -max_target_seqs 10 -html -outfmt "7 ssciname sblastname stitle std" \

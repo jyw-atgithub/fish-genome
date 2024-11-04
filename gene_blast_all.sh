@@ -47,3 +47,7 @@ target=`echo ${line}|gawk '{print $1}'`
 echo ${target}
 cat ${anno}/AP_augustus.hints.codingseq.tmp |grep -A 1 "^>${target}" |sed s@"^>${target}"@">${line}"@g|sed 's/\t/ /g'  >> AP_named.codingseq
 done <${anno}/AP_blastx_names.tsv
+
+##Another way to find our target genes
+grep -w "lipase" PC_all_blastx.txt |grep -w -E "ester|bile" |less -S
+grep -w chitinase AP_all_blastx.txt |gawk -F "\t" ' $6 > 50 {print $4}'|sort -h|uniq|less -S

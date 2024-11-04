@@ -49,3 +49,11 @@ samtools index -@ ${nT} ${old}/gene_mapping/pepsinogen-asm.bam
 minimap2 -a --cs -x splice:hq -u f -t ${nT} ${bl}/AP_genome.fasta ${bl}/query/pepsin.fasta | samtools view -bS - |\
 samtools sort -@ ${nT} -o ${old}/gene_mapping/pepsinogen-AP.bam
 samtools index -@ ${nT} ${old}/gene_mapping/pepsinogen-AP.bam
+
+#try to find the carboxyl ester lipase genes
+minimap2 -a --cs -x splice:hq -u f -t ${nT} ${asm} ${bl}/query/CEsterLipase.fasta | samtools view -bS - |\
+samtools sort -@ ${nT} -o ${old}/gene_mapping/CEsterLipase-asm.bam
+samtools index -@ ${nT} ${old}/gene_mapping/CEsterLipase-asm.bam
+minimap2 -a --cs -x splice:hq -u f -t ${nT} ${bl}/AP_genome.fasta ${bl}/query/CEsterLipase.fasta | samtools view -bS - |\
+samtools sort -@ ${nT} -o ${old}/gene_mapping/CEsterLipase-AP.bam
+samtools index -@ ${nT} ${old}/gene_mapping/CEsterLipase-AP.bam

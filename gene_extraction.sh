@@ -2,39 +2,43 @@
 
 source ~/.bashrc
 nT=$SLURM_CPUS_PER_TASK
-old="/dfs7/jje/jenyuw/Fish-project-hpc3/old"
-asm="/dfs7/jje/jenyuw/Fish-project-hpc3/old/C01_final.fasta"
 gene_seq="/dfs7/jje/jenyuw/Fish-project-hpc3/old/gene_sequences"
 bl="/dfs7/jje/jenyuw/Fish-project-hpc3/old/blast"
 anno="/dfs7/jje/jenyuw/Fish-project-hpc3/old/annotation"
-read="/dfs7/jje/jenyuw/Fish-project-hpc3/results/trimmed/C01_trimmed.fastq.gz"
 
 ####Let's unify the coordinates, so we rely on the annotation results (gff file)####
 
 ##Retrive only the Chitinase genes from AP and PC, for phylogeny.
-#the content of AP_seq_names.txt is modified accordingly. #BAD PRACTICE THOUGH
-printf "" >${anno}/AP_chitinase.gff
-while read line
-do
-grep ${line} ${anno}/AP_renamed.gff|grep "mRNA" >> ${anno}/AP_chitinase.gff
-done < ${anno}/AP_seq_names.txt
-seqkit subseq --gtf ${anno}/AP_chitinase.gff  ${bl}/AP_genome.fasta >${gene_seq}/AP_chitinase.fasta
+seqkit grep -w 0 -p jg22439.t1,jg22449.t1,jg22450.t1,jg10722.t1,jg14608.t1,jg14609.t1,jg15508.t1,jg15509.t1,jg15510.t1,jg15511.t1 \
+${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_chitinase.fasta
 
-#Extract the CDS sequence of only the chitinase gene from PC.
-#the content of pc_seq_names.txt is modified accordingly. #BAD PRACTICE THOUGH
-seqkit grep -n -f ${anno}/PC_seq_names.txt  ${anno}/braker.codingseq > ${gene_seq}/PC_chitinase.fasta
+seqkit grep -w 0 -p g20404.t1,g20409.t1,g20410.t1,g16524.t1,g14866.t1,g14867.t1,g10378.t1 \
+${anno}/braker.codingseq > ${gene_seq}/PC_chitinase.fasta
+
+##Different chitinase gene set, by blast all
+seqkit grep -w 0 -p jg10722.t1,jg12213.t1,jg14608.t1,jg14609.t1,jg15508.t1,jg15509.t1,jg15510.t1,jg15511.t1,jg22439.t1,jg22443.t1,jg22444.t1,jg22447.t1,jg22448.t1,jg22449.t1,jg22450.t1 ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_chitinase_2.fasta
+
+seqkit grep -w 0 -p g20404.t1,g20409.t1,g20410.t1,g16524.t1,g14866.t1,g14867.t1,g10374.t1,g10375.t1,g10376.t1,g10377.t1,g10378.t1 ${anno}/braker.codingseq > ${gene_seq}/PC_chitinase_2.fasta
 
 ##Merge all sequences of a gene from all species. It will be used for phylogeny.
 cat ${bl}/query/chitinase_salmon.fasta  ${bl}/query/chitinase_sticlkeback.fasta ${gene_seq}/AP_chitinase.fasta ${gene_seq}/PC_chitinase.fasta > ${gene_seq}/all_chitinase.fasta
 
 #similar tricks on pepsinogen genes
-seqkit grep -p jg14418.t1,jg14423.t1,jg5382.t1,jg27196.t1 ${anno}/AP_augustus.hints.codingseq >${anno}/AP_pepsinogen.fasta #the sequence of jg14418 & jg14423 are merged, because it looks like an annotation error.
-seqkit grep -p g20032.t1,g4760.t1,g15024.t1 ${anno}/braker.codingseq >${anno}/PC_pepsinogen.fasta
+seqkit grep -p jg14418.t1,jg14423.t1,jg5382.t1,jg27196.t1 ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_pepsinogen.fasta #the sequence of jg14418 & jg14423 are merged, because it looks like an annotation error.
+seqkit grep -p g20032.t1,g4760.t1,g15024.t1 ${anno}/braker.codingseq >${gene_seq}/PC_pepsinogen.fasta
 
+##Extract the CDS sequence of lipase (CEL)
+#AP
+seqkit grep -w 0 -p jg5889.t1,jg5890.t1,jg5891.t1,jg22915.t1 ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_CEL.fasta
+#PC
+seqkit grep -w 0 -p g17563.t1,g17564.t1,g19849.t1 ${anno}/braker.codingseq >${gene_seq}/PC_CEL.fasta
 
 
 ##The following method is less effecent
 : <<'SKIP'
+asm="/dfs7/jje/jenyuw/Fish-project-hpc3/old/C01_final.fasta"
+old="/dfs7/jje/jenyuw/Fish-project-hpc3/old"
+
 #Extract the coordinate of CEL&CEL-like genes
 minimap2 -a --cs -x splice:hq -uf -t ${nT} ${asm} ${old}/blast/CEL-like.fasta ${old}/blast/CEsterLipase.fasta| samtools view -bS - |samtools sort -@ ${nT} -o ${old}/C01_CELs-asm.bam
 samtools index -@ ${nT} ${old}/C01_CELs-asm.bam
