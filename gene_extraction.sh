@@ -6,7 +6,7 @@ gene_seq="/dfs7/jje/jenyuw/Fish-project-hpc3/old/gene_sequences"
 bl="/dfs7/jje/jenyuw/Fish-project-hpc3/old/blast"
 anno="/dfs7/jje/jenyuw/Fish-project-hpc3/old/annotation"
 
-####Let's unify the coordinates, so we rely on the annotation results (gff file)####
+#######Let's unify the coordinates, so we rely on the annotation results (gff file)#######
 
 ##Retrive only the Chitinase genes from AP and PC, for phylogeny.
 seqkit grep -w 0 -p jg22439.t1,jg22449.t1,jg22450.t1,jg10722.t1,jg14608.t1,jg14609.t1,jg15508.t1,jg15509.t1,jg15510.t1,jg15511.t1 \
@@ -32,6 +32,10 @@ seqkit grep -p g20032.t1,g4760.t1,g15024.t1 ${anno}/braker.codingseq >${gene_seq
 seqkit grep -w 0 -p jg5889.t1,jg5890.t1,jg5891.t1,jg22915.t1 ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_CEL.fasta
 #PC
 seqkit grep -w 0 -p g17563.t1,g17564.t1,g19849.t1 ${anno}/braker.codingseq >${gene_seq}/PC_CEL.fasta
+
+##Extract the CDS sequence of possible anapep
+#PC
+seqkit grep -w 0 -p g11134.t1,g11206.t1,g11207.t1,g12581.t1,g12662.t1,g12662.t2,g13180.t1,g14890.t1,g18432.t1,g18433.t1,g4207.t1 ${anno}/braker.codingseq >${gene_seq}/PC_possible-anapep.fasta
 
 
 ##The following method is less effecent

@@ -11,12 +11,16 @@
 anno="/dfs7/jje/jenyuw/Fish-project-hpc3/old/annotation"
 cd ${anno}
 
-## Blast all genes
+## Blast all genes. This take days.
+##Search Condition: limit the search in Actinopterygi (taxid:7898)
 blastx -db ${anno}/refseq_database/refseq_protein -best_hit_score_edge 0.1 -taxids 7898 -num_threads $SLURM_CPUS_PER_TASK \
 -max_target_seqs 5 -outfmt "7 ssciname sblastname stitle std" -query ${anno}/braker.codingseq -out ${anno}/PC_all_blastx.txt
 
 blastx -db ${anno}/refseq_database/refseq_protein -best_hit_score_edge 0.1 -taxids 7898 -num_threads $SLURM_CPUS_PER_TASK \
 -max_target_seqs 5 -outfmt "7 ssciname sblastname stitle std" -query ${anno}/AP_augustus.hints.codingseq -out ${anno}/AP_all_blastx.txt
+
+blastx -db ${anno}/refseq_database/refseq_protein -best_hit_score_edge 0.1 -taxids 7898 -num_threads $SLURM_CPUS_PER_TASK \
+-max_target_seqs 5 -outfmt "7 ssciname sblastname stitle std" -query ${anno}/CV_AUGUSTUS_TRANSCRIPTS_masked.fasta -out ${anno}/CV_all_blastx.txt
 
 ##Parsing the blastx output. Match the query name and the subject title.
 for i in  ${anno}/AP_all_blastx.txt ${anno}/PC_all_blastx.txt
@@ -49,5 +53,9 @@ cat ${anno}/AP_augustus.hints.codingseq.tmp |grep -A 1 "^>${target}" |sed s@"^>$
 done <${anno}/AP_blastx_names.tsv
 
 ##Another way to find our target genes
+##The results are written in "Gene_list.md"
+##This is the current best way.
 grep -w "lipase" PC_all_blastx.txt |grep -w -E "ester|bile" |less -S
-grep -w chitinase AP_all_blastx.txt |gawk -F "\t" ' $6 > 50 {print $4}'|sort -h|uniq|less -S
+grep -w chitinase ${anno}/AP_all_blastx.txt |gawk -F "\t" ' $6 > 50 {print $4}'|sort -h|uniq|less -S
+grep -w "pepsin" PC_all_blastx.txt |less -S
+grep -w "aminopeptidase" PC_all_blastx.txt| grep -E -v "methionine|endoplasmic|xaa-Pro|puromycin|leucyl|glutamyl|cytosol" |cut -f 4 |sort -h | uniq -c|less -S
