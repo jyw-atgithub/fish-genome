@@ -20,7 +20,7 @@ blastx -db ${anno}/refseq_database/refseq_protein -best_hit_score_edge 0.1 -taxi
 -max_target_seqs 5 -outfmt "7 ssciname sblastname stitle std" -query ${anno}/AP_augustus.hints.codingseq -out ${anno}/AP_all_blastx.txt
 
 blastx -db ${anno}/refseq_database/refseq_protein -best_hit_score_edge 0.1 -taxids 7898 -num_threads $SLURM_CPUS_PER_TASK \
--max_target_seqs 5 -outfmt "7 ssciname sblastname stitle std" -query ${anno}/CV_AUGUSTUS_TRANSCRIPTS_masked.fasta -out ${anno}/CV_all_blastx.txt
+-max_target_seqs 10 -outfmt "7 ssciname sblastname stitle std" -query ${anno}/CV_braker.codingseq -out ${anno}/CV_all_blastx.txt
 
 ##Parsing the blastx output. Match the query name and the subject title.
 for i in  ${anno}/AP_all_blastx.txt ${anno}/PC_all_blastx.txt

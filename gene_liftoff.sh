@@ -32,7 +32,9 @@ module load anaconda/2024.06
 conda activate liftoff
 liftoff -p 8 -g ${anno}/AP_renamed.gff -o ${anno}/AP_lifted_PC.gff -u ${anno}/AP_unmapped_features.txt ${bl}/C01_final.fasta.masked ${bl}/AP_genome.fasta
 ##Lift the gene annotation from CV to P.chirus
-liftoff -p 8 -g ${anno}/CV_AUGUSTUS.gff3 -o ${anno}/CV_lifted_PC.gff -u ${anno}/CV_unmapped_features.txt ${bl}/C01_final.fasta.masked ${bl}/CV_genome.fasta
+##use our new annotation (all in CV_re-annotation)
+#the genome sequence names were also changes
+liftoff -p 8 -g ${anno}/CV_braker.gtf -o ${anno}/CV_lifted_PC.gff -u ${anno}/CV_unmapped_features.txt ${bl}/C01_final.fasta.masked ${bl}/CV_genome.rename.fasta
 conda deactivate
 
 

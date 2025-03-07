@@ -8,7 +8,7 @@
 
 old="/dfs7/jje/jenyuw/Fish-project-hpc3/old"
 annotation="/dfs7/jje/jenyuw/Fish-project-hpc3/old/annotation"
-input_genome="/dfs7/jje/jenyuw/Fish-project-hpc3/old/annotation/CV_re-annotation/CV_genome.fasta"
+input_genome="/dfs7/jje/jenyuw/Fish-project-hpc3/old/annotation/CV_re-annotation/CV_genome_rename.fasta"
 CV_re="/dfs7/jje/jenyuw/Fish-project-hpc3/old/annotation/CV_re-annotation"
 nT=$SLURM_CPUS_PER_TASK
 
@@ -31,8 +31,9 @@ done
 conda deactivate
 
 echo "QC done"
+#Do not use gzip files for hisat2.
+hisat2-build -p ${nT} ${input_genome} CV_genome_rename.fasta
 
-hisat2-build -p ${nT} ${input_genome} CV_genome.fasta
 
 read1="CV_heart_SRX2837937.r1.trimmed.fastq"
 read2="CV_heart_SRX2837937.r2.trimmed.fastq"
@@ -52,7 +53,7 @@ hisat2 -p ${nT} --qc-filter --summary-file ${CV_re}/hisat2-summary.txt -x ${inpu
 samtools view -b -S -h -@ ${nT} - | samtools sort -@ ${nT} -m 4G  -o ${CV_re}/CV_PI.sort.bam
 samtools index -@ ${nT} ${CV_re}/CV_PI.sort.bam
 
-samtools merge -f -@ ${nT} -o ${CV_re}/CV_mRNA.sort.bam ${annotation}/CV_{PI,heart,liver}.sort.bam
+samtools merge -f -@ ${nT} -o ${CV_re}/CV_mRNA.sort.bam ${CV_re}/CV_{PI,heart,liver}.sort.bam
 
 echo "Mapping done"
 
