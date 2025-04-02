@@ -34,9 +34,10 @@ liftoff -p 8 -g ${anno}/AP_renamed.gff -o ${anno}/AP_lifted_PC.gff -u ${anno}/AP
 ##Lift the gene annotation from CV to P.chirus
 ##use our new annotation (all in CV_re-annotation)
 #the genome sequence names were also changes
-liftoff -p 8 -g ${anno}/CV_braker.gtf -o ${anno}/CV_lifted_PC.gff -u ${anno}/CV_unmapped_features.txt ${bl}/C01_final.fasta.masked ${bl}/CV_genome.rename.fasta
+liftoff -p 8 -g ${anno}/CV_braker.gtf -o ${anno}/CV_lifted_PC.gtf -u ${anno}/CV_unmapped_features.txt ${bl}/C01_final.fasta.masked ${bl}/CV_genome.rename.fasta
+##gene IDs are changed from "g????" to "gene_????" Super weird
 conda deactivate
-
+module unload anaconda/2024.06
 
 ##Now, do similar work on CV genome
 ##Installation of AGAT by conda, micromamba and maunally all failed. So switch to singularity.
@@ -46,3 +47,21 @@ conda deactivate
 #singularity pull docker://quay.io/biocontainers/agat:1.4.1--pl5321hdfd78af_0
 #singularity run /pub/jenyuw/Software/agat_1.4.1--pl5321hdfd78af_0.sif
 ###Singulariy also FAILED.
+
+
+#####
+##### A newer program called "LiftOn" is available
+#####
+
+module load python/3.10.2
+#git clone https://github.com/Kuanhao-Chao/LiftOn
+#cd LiftOn
+#python3 setup.py install --user
+lifton -t 8 -D \
+-g ${anno}/CV_braker.gtf \
+-o ${anno}/CV_lifted-lift-on_PC.gtf \
+-u ${anno}/CV_unmapped_features-lift-on.txt \
+${bl}/C01_final.fasta.masked ${bl}/CV_genome.rename.fasta
+
+lifton -t 8 -D -g CV_braker.gtf ${bl}/C01_final.fasta.masked CV_genome.rename.fasta
+##NOT Working so far

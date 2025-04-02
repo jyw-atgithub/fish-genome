@@ -58,4 +58,10 @@ done <${anno}/AP_blastx_names.tsv
 grep -w "lipase" PC_all_blastx.txt |grep -w -E "ester|bile" |less -S
 grep -w chitinase ${anno}/AP_all_blastx.txt |gawk -F "\t" ' $6 > 50 {print $4}'|sort -h|uniq|less -S
 grep -w "pepsin" PC_all_blastx.txt |less -S
-grep -w "aminopeptidase" PC_all_blastx.txt| grep -E -v "methionine|endoplasmic|xaa-Pro|puromycin|leucyl|glutamyl|cytosol" |cut -f 4 |sort -h | uniq -c|less -S
+grep -w "aminopeptidase" PC_all_blastx.txt| grep -E -v "methionine|endoplasmic|xaa-Pro|puromycin|leucyl|glutamyl|cytosol|aspartyl" |cut -f 4 |sort -h | uniq -c|less -S
+
+#"trypsinogen" has not been view
+grep -w "trypsin" PC_all_blastx.txt| grep -v "inhibitor" |cut -f 4 |sort -h | uniq -c|less -S
+
+
+grep "chymotrypsin" PC_all_blastx.txt|grep -v "elastase" |less -S

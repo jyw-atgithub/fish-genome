@@ -28,17 +28,34 @@ seqkit grep -p jg14418.t1,jg14423.t1,jg5382.t1,jg27196.t1 ${anno}/AP_augustus.hi
 seqkit grep -p g20032.t1,g4760.t1,g15024.t1 ${anno}/braker.codingseq >${gene_seq}/PC_pepsinogen.fasta
 
 ##Extract the CDS sequence of lipase (CEL)
-#AP
-seqkit grep -w 0 -p jg5889.t1,jg5890.t1,jg5891.t1,jg22915.t1 ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_CEL.fasta
 #PC
 seqkit grep -w 0 -p g17563.t1,g17564.t1,g19849.t1 ${anno}/braker.codingseq >${gene_seq}/PC_CEL.fasta
+#AP
+seqkit grep -w 0 -p jg5889.t1,jg5890.t1,jg5891.t1,jg22915.t1 ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_CEL.fasta
 
-##Extract the CDS sequence of possible anapep
+##Extract the CDS sequence of amylase2 (amy2)
 #PC
+seqkit grep -w 0 -p "g4512.t1" ${anno}/braker.codingseq >${gene_seq}/PC_amy2.fasta
+#AP
+seqkit grep -w 0 -p "jg8309.t1" ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_amy2.fasta
+#CV
+seqkit grep -w 0 -p "g11333.t1,g11334.t1,g11335.t1" ${anno}/CV_braker.codingseq >${gene_seq}/CV_amy2.fasta
+
+
+
+
+##Extract the CDS sequence of possible anapep in PC
 seqkit grep -w 0 -p g11134.t1,g11206.t1,g11207.t1,g12581.t1,g12662.t1,g12662.t2,g13180.t1,g14890.t1,g18432.t1,g18433.t1,g4207.t1 ${anno}/braker.codingseq >${gene_seq}/PC_possible-anapep.fasta
+##Actual anapep in PC
+seqkit grep -w 0 -p "g11134.t1,g11206.t1,g11207.t1,g18432.t1,g18433.t1" ${anno}/braker.codingseq >${gene_seq}/PC_anapep.fasta
+##in AP ##jg25411 and jg25410 were merged manually
+seqkit grep -w 0 -p "jg11917.t1,jg22992.t1,jg22991.t1,jg25412.t1,jg25411.t1,jg25410.t1" ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_anapep.fasta
+##in CV
+seqkit grep -w 0 -p "g19645.t1,g2854.t1,g2855.t1,g19387.t1,g19388.t1" ${anno}/CV_braker.codingseq >${gene_seq}/CV_anapep.fasta
 
 
-##The following method is less effecent
+
+##The following method is less effecent and less accurate.
 : <<'SKIP'
 asm="/dfs7/jje/jenyuw/Fish-project-hpc3/old/C01_final.fasta"
 old="/dfs7/jje/jenyuw/Fish-project-hpc3/old"
