@@ -56,6 +56,8 @@ done <${anno}/AP_blastx_names.tsv
 ##The results are written in "Gene_list.md"
 ##This is the current best way.
 grep -w "lipase" PC_all_blastx.txt |grep -w -E "ester|bile" |less -S
+grep -E "chitinase|chitotriosidase" PC_all_blastx.txt |gawk -F "\t" ' $6 > 50 {print $4}'|sort -h|uniq -c|less -S
+
 grep -w chitinase ${anno}/AP_all_blastx.txt |gawk -F "\t" ' $6 > 50 {print $4}'|sort -h|uniq|less -S
 grep -w "pepsin" PC_all_blastx.txt |less -S
 grep -w "aminopeptidase" PC_all_blastx.txt| grep -E -v "methionine|endoplasmic|xaa-Pro|puromycin|leucyl|glutamyl|cytosol|aspartyl" |cut -f 4 |sort -h | uniq -c|less -S
