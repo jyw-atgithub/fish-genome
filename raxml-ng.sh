@@ -10,3 +10,13 @@ raxml-ng --check --msa ${msa}/chi_aligned.fas --model GTR+G --prefix ${phylo}/te
 
 raxml-ng --all --msa ${msa}/chi_aligned.fas --prefix ${phylo}/chi \
 --model "GTR+G" --tree "pars{25},rand{25}" --bs-trees 200 --threads ${nT} --seed 2 
+
+# Trypsin (prss)
+raxml-ng --check --msa ${msa}/less_prss_aligned.fas --model GTR+G --prefix ${phylo}/test
+raxml-ng --all --msa ${msa}/less_prss_aligned.fas --prefix ${phylo}/prss \
+--model "GTR+G" --tree "pars{25},rand{25}" --bs-trees 200 --threads ${nT} --seed 2 --redo
+
+# Chymotrypsin (ctr & ctrl)
+raxml-ng --check --msa ${msa}/ctr_aligned.fas --model GTR+G --prefix ${phylo}/test
+raxml-ng --all --msa ${msa}/ctr_aligned.fas --prefix ${phylo}/ctr \
+--model "GTR+G" --tree "pars{25},rand{25}" --bs-trees 200 --threads ${nT} --seed 2

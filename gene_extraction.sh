@@ -1,6 +1,6 @@
 #!/bin/bash
-
 source ~/.bashrc
+
 nT=$SLURM_CPUS_PER_TASK
 gene_seq="/dfs7/jje/jenyuw/Fish-project-hpc3/old/gene_sequences"
 bl="/dfs7/jje/jenyuw/Fish-project-hpc3/old/blast"
@@ -38,6 +38,11 @@ seqkit grep -w 0 -p "g4512.t1" ${anno}/braker.codingseq >${gene_seq}/PC_amy2.fas
 seqkit grep -w 0 -p "jg8309.t1" ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_amy2.fasta
 #CV
 seqkit grep -w 0 -p "g11333.t1,g11334.t1,g11335.t1" ${anno}/CV_braker.codingseq >${gene_seq}/CV_amy2.fasta
+##Merge all sequences
+cat ${bl}/query/amylase_ref.fasta ${gene_seq}/*_amy2.fasta|seqkit seq -w 0 |sed 's/ /_/g' > ${gene_seq}/all_amy2.fasta
+##Because the phylogeny of amylase is mystereous, we involve more from Refseq (mRNA).
+##((amylase AND srcdb_refseq[PROP]) AND "vertebrates"[porgn:__txid7742]) AND "bony fishes"[porgn:__txid7898] 
+
 
 ##Extract the CDS sequence of trypsin/trypsinogen (prss) --> It turned out most of them are not trypsin!! They are other serine proteases.
 
@@ -54,24 +59,26 @@ cat ${bl}/query/trypsin_prss.fasta ${gene_seq}/*_prss.fasta|seqkit seq -w 0 |sed
 
 ##Extract the CDS sequence of Chymotrypsin (ctrl)
 #PC
-seqkit grep -w 0 -p "g6187.t1,g5515.t1,g5516.t1,g19950.t1,jg9845.t1" ${anno}/braker.codingseq >${gene_seq}/PC_ctrl.fasta
+seqkit grep -w 0 -p "g6187.t1,g5515.t1,g5516.t1,g19950.t1,jg9845.t1" ${anno}/braker.codingseq >${gene_seq}/PC_ctr.fasta
 #AP
-seqkit grep -w 0 -p "jg7871.t1,jg7872.t1,jg5494.t1,jg29074.t1,jg29075.t1,jg9845.t1" ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_ctrl.fasta
+seqkit grep -w 0 -p "jg7871.t1,jg7872.t1,jg5494.t1,jg29074.t1,jg29075.t1,jg9845.t1" ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_ctr.fasta
 #CV
-seqkit grep -w 0 -p "g18415.t1,g18416.t1,g18417.t1,g10011.t1,g4559.t1,g5092.t1" ${anno}/CV_braker.codingseq >${gene_seq}/CV_ctrl.fasta
-
+seqkit grep -w 0 -p "g18415.t1,g18416.t1,g18417.t1,g10011.t1,g4559.t1,g5092.t1" ${anno}/CV_braker.codingseq >${gene_seq}/CV_ctr.fasta
+##Merge all sequences
+cat ${bl}/query/ctr.fasta ${gene_seq}/*_ctr.fasta|seqkit seq -w 0 |sed 's/ /_/g' > ${gene_seq}/all_ctr.fasta
 
 
 
 ##Extract the CDS sequence of possible anapep in PC
 seqkit grep -w 0 -p g11134.t1,g11206.t1,g11207.t1,g12581.t1,g12662.t1,g12662.t2,g13180.t1,g14890.t1,g18432.t1,g18433.t1,g4207.t1 ${anno}/braker.codingseq >${gene_seq}/PC_possible-anapep.fasta
-##Actual anapep in PC
+##ACTUAL anapep in PC
 seqkit grep -w 0 -p "g11134.t1,g11206.t1,g11207.t1,g18432.t1,g18433.t1" ${anno}/braker.codingseq >${gene_seq}/PC_anapep.fasta
 ##in AP ##jg25411 and jg25410 were merged manually
 seqkit grep -w 0 -p "jg11917.t1,jg22992.t1,jg22991.t1,jg25412.t1,jg25411.t1,jg25410.t1" ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_anapep.fasta
 ##in CV
 seqkit grep -w 0 -p "g19645.t1,g2854.t1,g2855.t1,g19387.t1,g19388.t1" ${anno}/CV_braker.codingseq >${gene_seq}/CV_anapep.fasta
-
+##Merge all sequences
+cat ${bl}/query/anapep.fasta ${gene_seq}/*_anapep.fasta|seqkit seq -w 0 |sed 's/ /_/g' > ${gene_seq}/all_anapep.fasta
 
 ##Only depend on alignment.
 ##Skip

@@ -1,6 +1,8 @@
 #!/bin/bash
 bl="/dfs7/jje/jenyuw/Fish-project-hpc3/old/blast"
 anno="/dfs7/jje/jenyuw/Fish-project-hpc3/old/annotation"
+source ~/.bashrc
+
 #change the sequence names of assembly from NCBI to fit the original gff
 #JBFTZD010000001.1 Anoplarchus purpurescens isolate Ap_1_San_Simeon_UCI contig_149, whole genome shotgun sequence
 #only keep contig_*
@@ -27,7 +29,7 @@ grep -v -E "contig_2416|contig_3098|contig_3099" >${anno}/AP_renamed.gff
 sed -E s/'.*Seg([0-9]+)_quiver_quiver_pilon,.*'/'>Seg\1|quiver|quiver|pilon'/g GCA008087265.1_genome.fna >${bl}/CV_genome.fasta
 
 ##Lift the gene annotation from AP to P.chirus
-##incomplete
+
 module load anaconda/2024.06
 conda activate liftoff
 liftoff -p 8 -g ${anno}/AP_renamed.gff -o ${anno}/AP_lifted_PC.gff -u ${anno}/AP_unmapped_features.txt ${bl}/C01_final.fasta.masked ${bl}/AP_genome.fasta
@@ -38,6 +40,37 @@ liftoff -p 8 -g ${anno}/CV_braker.gtf -o ${anno}/CV_lifted_PC.gtf -u ${anno}/CV_
 ##gene IDs are changed from "g????" to "gene_????" Super weird
 conda deactivate
 module unload anaconda/2024.06
+
+##Second new annotation
+##add "parent" information of each gene.
+##original info, transcript_id "g7.t1";
+##Mke a new entry, "Parent="g7.t1";
+
+############################################GIVE UP FOR NOW ##########################################################
+while read line; do
+new=`echo "$line" | gawk -F "\t" '{print $9}'|gawk -F ";" ' $1~/transcript_id/ {print $1}'|sed 's/transcript_id /Parent=/'`
+feature=`echo "$line" | gawk -F "\t" '{print $3}'`
+#echo $new
+    if [[ -n "$new" ]]
+    then
+    printf "${line}${new};\n"
+    elif [[ $feature == "gene" ]]
+    then
+    echo $line |gawk '{print $1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7"\t"$8"\t""ID="$9";"}'
+    elif [[ $feature == "transcript" ]]
+    then
+    echo $line |gawk '{print $1"\t"$2"\t"$3"\t"$4"\t"$5"\t"$6"\t"$7"\t"$8"\t""ID="$9";""Parent="$9";"}'
+    else
+    printf "$line\n"
+    fi
+done < ${anno}/CV_braker.gtf |sed 's/"//g'> ${anno}/CV_braker_with_parent.gtf
+
+module load anaconda/2024.06
+conda activate liftoff
+liftoff -p 16 -g ${anno}/CV_braker_with_parent.gtf -o ${anno}/CV_second_lifted_PC.gtf -u ${anno}/CV_second_unmapped_features.txt ${bl}/C01_final.fasta.masked ${bl}/CV_genome.rename.fasta
+conda deactivate
+module unload anaconda/2024.06
+
 
 ##Now, do similar work on CV genome
 ##Installation of AGAT by conda, micromamba and maunally all failed. So switch to singularity.
