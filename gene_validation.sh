@@ -13,6 +13,26 @@ old="/dfs7/jje/jenyuw/Fish-project-hpc3/old"
 asm="/dfs7/jje/jenyuw/Fish-project-hpc3/old/C01_final.fasta"
 read="/dfs7/jje/jenyuw/Fish-project-hpc3/results/trimmed/C01_trimmed.fastq.gz"
 bl="/dfs7/jje/jenyuw/Fish-project-hpc3/old/blast"
+blquery="/dfs7/jje/jenyuw/Fish-project-hpc3/old/blast/query"
+
+####Double check the precense or absence of "pag1" in CV genome.
+#remember to use "-parse_seqids" so the output sam file contains the right ID.
+makeblastdb -parse_seqids -in ${bl}/CV_genome.rename.fasta -dbtype nucl -input_type fasta -blastdb_version 5
+makeblastdb -parse_seqids -in ${blquery}/pepsin.fasta -dbtype nucl -input_type fasta -blastdb_version 5
+blastn -outfmt "17 SR" -query ${blquery}/pepsin.fasta -db ${bl}/CV_genome.rename.fasta -num_threads ${nT} -out ${bl}/CV_pepsin.blastn.sam
+samtools view -b ${bl}/CV_pepsin.blastn.sam |samtools sort > ${bl}/CV_pepsin.blastn.bam
+samtools index ${bl}/CV_pepsin.blastn.bam
+##With IGV, we see the pga1 gene of XM_040176656 (three-spined stickleback) and XM_037464105 (P. pungitius) are aligned between "g8860" and "g8859" in Cebidichthys violaceus genome.
+##--> Then, try to chck it with PseudoChecker2.0
+pc="/dfs7/jje/jenyuw/Fish-project-hpc3/old/pseudochecker"
+module load singularity/3.11.3
+micromamba activate AGAT
+
+
+
+
+####The following minimap2 alignment were only performed on some genes. We found not all real genes were mapped to the assembly.
+
 #mapping raw reads to the assembly
 minimap2 -a --cs -x map-pb -t ${nT} ${asm} ${read} | samtools view -bS - |\
 samtools sort -@ ${nT} -o ${old}/C01_trimmed-asm.bam

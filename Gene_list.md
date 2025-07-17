@@ -1,48 +1,48 @@
 ## chitinase, from blast all, PC
 
-1. g20404.t1
-2. g20409.t1
-3. g20410.t1
-4. g16524.t1
-5. g14866.t1
-6. g14867.t1
-7. g10375.t1 + g10374.t1
-8. g10376.t1
-9. g10377.t1
-10. g10378.t1
+1. g20404.t1: CHI-A
+2. g20409.t1: CHIO-I
+3. g20410.t1: CHIO-I
+4. g16524.t1: CHID 1
+5. g14866.t1: CHI-A
+6. g14867.t1: CHI-A
+7. g10375.t1 + g10374.t1: CHIO-II
+8. g10376.t1: CHIO-I
+9. g10377.t1: CHIO-I
+10. g10378.t1: CHIO-II
 
 ## chitinase, from blast all, AP
 
-1. jg10722.t1
-2. jg12213.t1
-3. jg14608.t1
-4. jg14609.t1
-5. jg15508.t1
-6. jg15509.t1
-7. jg15510.t1
-8. jg15511.t1
-9. jg22439.t1
-10. jg22443.t1
-11. jg22444.t1
-12. jg22447.t1 (kinda short)
-13. jg22448.t1 (kinda short)
-14. jg22449.t1
-15. jg22450.t1
+1. jg10722.t1: CHID 1
+2. jg12213.t1: CHIO-I
+3. jg14608.t1: CHI-A
+4. jg14609.t1: CHI-A
+5. jg15508.t1: CHIO-II
+6. jg15509.t1: CHIO-I
+7. jg15510.t1: CHIO-I
+8. jg15511.t1: CHIO-II
+9. jg22439.t1: CHI-A
+10. jg22443.t1: CHIO-I
+11. jg22444.t1: CHIO-I
+12. jg22447.t1: CHIO-I
+13. jg22448.t1: CHIO-I
+14. jg22449.t1: CHIO-I
+15. jg22450.t1: CHIO-I
 
 
 
 ## chitinase, from blast all, CV
-1. g10459.t1
-2. g10462.t1
-3. g10463.t1
-4. g10464.t1
-5. g7345.t1
-6. g7585.t1
-7. g7586.t1
-8. g7587.t1 + g7588.t1
-9. g7591.t1
-10. g7734.t1
-11. g7735.t1
+1. g10459.t1: CHI-A
+2. g10462.t1: CHIO-I
+3. g10463.t1: CHIO-I
+4. g10464.t1: CHIO-Ib
+5. g7345.t1: CHID 1
+6. g7585.t1: CHIO-II
+7. g7586.t1: CHIO-I
+8. g7587.t1 + g7588.t1: CHIO-I
+9. g7591.t1: CHIO-I
+10. g7734.t1: CHI-A
+11. g7735.t1: CHI-A
 12. ~~g7589.t1~~ (too short. It is not a full gene and should be an alternative spliced mRNA)
 
 

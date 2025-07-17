@@ -30,6 +30,11 @@ seqkit grep -p g20032.t1,g4760.t1,g15024.t1 ${anno}/braker.codingseq >${gene_seq
 seqkit grep -w 0 -p g17563.t1,g17564.t1,g19849.t1 ${anno}/braker.codingseq >${gene_seq}/PC_CEL.fasta
 #AP
 seqkit grep -w 0 -p jg5889.t1,jg5890.t1,jg5891.t1,jg22915.t1 ${anno}/AP_augustus.hints.codingseq >${gene_seq}/AP_CEL.fasta
+#CV
+seqkit grep -w 0 -p "g13350.t1,g13351.t1,g13352.t1,g13353.t1" ${anno}/CV_braker.codingseq >${gene_seq}/CV_CEL.fasta
+##Merge all sequences
+cat ${bl}/query/CEL_ref.fasta ${gene_seq}/*_CEL.fasta|seqkit seq -w 0 |sed 's/ /_/g' > ${gene_seq}/all_CEL.fasta
+
 
 ##Extract the CDS sequence of amylase2 (amy2)
 #PC
